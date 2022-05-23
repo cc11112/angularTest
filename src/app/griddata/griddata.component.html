@@ -1,0 +1,19 @@
+<!-- Button to clear selection -->
+<button (click)="clearSelection()">Clear Selection</button>
+
+<mat-form-field appearance="fill">
+  <input [(ngModel)]="initDate" matInput [matDatepicker]="picker2" />
+  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2></mat-datepicker>
+</mat-form-field>
+
+<!-- AG Grid Angular Component -->
+<mat-card *ngIf="loading" class="overlay">
+  <mat-progress-spinner color="primary" mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>
+
+<ag-grid-angular class="ag-theme-alpine gridDiv" #agGrid [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+  [rowData]="rowData$ | async" [rowSelection]="'multiple'" [animateRows]="true"
+  [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)" (cellClicked)="onCellClicked($event)">
+</ag-grid-angular> 
