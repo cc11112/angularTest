@@ -13,13 +13,15 @@ import { AppComponent } from './app.component';
 import { GriddataComponent } from './griddata/griddata.component';
 import { DateEditor } from './gridCellEditors/date-editor.component';
 import { DoublingEditor } from './gridCellEditors/doubling-editor.comonpent'
+import { DropDownEditor } from './gridCellEditors/dropdown-editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GriddataComponent,
     DateEditor,
-    DoublingEditor
+    DoublingEditor,
+    DropDownEditor
   ],
   imports: [
     BrowserAnimationsModule,

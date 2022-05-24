@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { DateEditor } from '../gridCellEditors/date-editor.component';
 import { NumericEditor } from '../gridCellEditors/numbericEditor';
 import { DoublingEditor } from '../gridCellEditors/doubling-editor.comonpent'
+import { DropDownEditor } from '../gridCellEditors/dropdown-editor.component';
 
 import * as moment from 'moment';
 
@@ -30,25 +31,39 @@ export class GriddataComponent implements OnInit {
     resizable: true,
     sortable: true,
     filter: true,
-    flex: 1,
+    //flex: 1,
   };
 
   public columnDefs: ColDef[] = [
-    { field: "athlete", width: 150, editable: true },
+    {
+      headerName: "NAME",
+      field: "athlete",
+      width: 150, editable: true
+    },
     {
       field: "age", width: 90, editable: true,
+      valueParser: params => Number(params.newValue),
       cellEditor: DoublingEditor
     },
-    { field: "country", width: 150, editable: true },
+    {
+      field: "country", width: 250, editable: true,
+      singleClickEdit: true,
+      cellEditor: DropDownEditor,
+      cellEditorParams: {
+        options: ['Australia', 'Canada', 'United States']
+
+      }
+    },
     {
       field: "year", width: 90, editable: true,
       cellRendererParams: (p: any) => {
         return { inputType: 'number' };
       },
-      cellEditor: NumericEditor,
+      cellEditor: NumericEditor
     },
     {
       field: "date", width: 150, editable: true,
+      singleClickEdit: true,
       cellRenderer: (c: any) => {
         let regEx = /^\d{4}-\d{2}-\d{2}$/;
         if (c.value.match(regEx))
@@ -76,7 +91,10 @@ export class GriddataComponent implements OnInit {
   public initDate: Date = new Date();
 
   constructor(private http: HttpClient) {
-    this.frameworkComponents = { datePicker: DateEditor };
+    this.frameworkComponents = {
+      datePicker: DateEditor,
+      //dropdownList: DropDownEditor
+    };
   }
 
   ngOnInit() {
