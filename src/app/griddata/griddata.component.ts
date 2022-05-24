@@ -4,8 +4,9 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 
-import { DateEditor } from '../gridCellEditors/dateEditor';
+import { DateEditor } from '../gridCellEditors/date-editor.component';
 import { NumericEditor } from '../gridCellEditors/numbericEditor';
+import { DoublingEditor } from '../gridCellEditors/doubling-editor.comonpent'
 
 import * as moment from 'moment';
 
@@ -34,7 +35,10 @@ export class GriddataComponent implements OnInit {
 
   public columnDefs: ColDef[] = [
     { field: "athlete", width: 150, editable: true },
-    { field: "age", width: 90, editable: true },
+    {
+      field: "age", width: 90, editable: true,
+      cellEditor: DoublingEditor
+    },
     { field: "country", width: 150, editable: true },
     {
       field: "year", width: 90, editable: true,
