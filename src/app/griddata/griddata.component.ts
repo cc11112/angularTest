@@ -34,6 +34,8 @@ export class GriddataComponent implements OnInit {
     //flex: 1,
   };
 
+  private countries: string[] = [];
+
   public columnDefs: ColDef[] = [
     {
       headerName: "NAME",
@@ -50,8 +52,10 @@ export class GriddataComponent implements OnInit {
       singleClickEdit: true,
       cellEditor: DropDownEditor,
       cellEditorParams: {
-        options: ['Australia', 'Canada', 'United States']
-
+        getOptions: () => {
+          const sortedData = this.countries.sort();
+          return sortedData;
+        }
       }
     },
     {
@@ -103,6 +107,13 @@ export class GriddataComponent implements OnInit {
   // Example load data from sever
   onGridReady(params: GridReadyEvent) {
     this.rowData$ = this.http.get<any[]>(this.url);
+    this.rowData$.forEach((e: any[]) => {
+      e.forEach((x) => {
+        if (this.countries.indexOf(x.country) === -1)
+          this.countries.push(x.country);
+      });
+    });
+
     console.log('GridReadyEvent, data is loaded');
     //can't as function(){ } format    
     setTimeout(() => {

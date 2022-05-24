@@ -33,7 +33,7 @@ export class DropDownEditor implements ICellEditorAngularComp, AfterViewInit {
 
     agInit(params: any): void {
         this.params = params;
-        this.list = params.options;
+        this.list = params.getOptions();
         this.selectedValue = this.params.value;
 
     }
