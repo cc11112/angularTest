@@ -53,8 +53,7 @@ export class GriddataComponent implements OnInit {
       cellEditor: DropDownEditor,
       cellEditorParams: {
         getOptions: () => {
-          const sortedData = this.countries.sort();
-          return sortedData;
+          return this.countries;
         }
       }
     },
@@ -97,7 +96,6 @@ export class GriddataComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.frameworkComponents = {
       datePicker: DateEditor,
-      //dropdownList: DropDownEditor
     };
   }
 
@@ -106,19 +104,24 @@ export class GriddataComponent implements OnInit {
 
   // Example load data from sever
   onGridReady(params: GridReadyEvent) {
+
     this.rowData$ = this.http.get<any[]>(this.url);
-    this.rowData$.forEach((e: any[]) => {
-      e.forEach((x) => {
-        if (this.countries.indexOf(x.country) === -1)
-          this.countries.push(x.country);
+
+    this.rowData$.subscribe(res => {
+      let list: string[] = [];
+      res.forEach((x) => {
+        if (list.indexOf(x.country) === -1)
+          list.push(x.country);
       });
+
+      this.countries = list.sort();
+
+      this.loading = false;
+
+      console.log('GridReadyEvent, data is loaded');
+
     });
 
-    console.log('GridReadyEvent, data is loaded');
-    //can't as function(){ } format    
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
   }
 
   // Example of consuming Grid Event

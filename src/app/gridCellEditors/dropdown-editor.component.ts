@@ -20,9 +20,10 @@ import { MatSelect } from '@angular/material/select';
 })
 
 export class DropDownEditor implements ICellEditorAngularComp, AfterViewInit {
-    private params!: ICellEditorParams;
     public selectedValue: any;
+
     public list: any[];
+
     @ViewChild(MatSelect, { read: ViewContainerRef })
     public input!: ViewContainerRef;
 
@@ -31,10 +32,9 @@ export class DropDownEditor implements ICellEditorAngularComp, AfterViewInit {
         setTimeout(() => this.input.element.nativeElement.focus());
     }
 
-    agInit(params: any): void {
-        this.params = params;
+    agInit(params: ICellEditorParams | any): void {
         this.list = params.getOptions();
-        this.selectedValue = this.params.value;
+        this.selectedValue = params.value;
 
     }
 
