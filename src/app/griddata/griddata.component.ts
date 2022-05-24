@@ -4,7 +4,9 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 
-import { MycelldateComponent } from '../mycelldate/mycelldate.component';
+import { DateEditor } from '../gridCellEditors/dateEditor';
+import { NumericEditor } from '../gridCellEditors/numbericEditor';
+
 import * as moment from 'moment';
 
 @Component({
@@ -24,15 +26,23 @@ export class GriddataComponent implements OnInit {
 
   // DefaultColDef sets props common to all Columns
   public defaultColDef: ColDef = {
+    resizable: true,
     sortable: true,
     filter: true,
+    flex: 1,
   };
 
   public columnDefs: ColDef[] = [
     { field: "athlete", width: 150, editable: true },
     { field: "age", width: 90, editable: true },
     { field: "country", width: 150, editable: true },
-    { field: "year", width: 90, editable: true },
+    {
+      field: "year", width: 90, editable: true,
+      cellRendererParams: (p: any) => {
+        return { inputType: 'number' };
+      },
+      cellEditor: NumericEditor,
+    },
     {
       field: "date", width: 150, editable: true,
       cellRenderer: (c: any) => {
@@ -62,7 +72,7 @@ export class GriddataComponent implements OnInit {
   public initDate: Date = new Date();
 
   constructor(private http: HttpClient) {
-    this.frameworkComponents = { datePicker: MycelldateComponent };
+    this.frameworkComponents = { datePicker: DateEditor };
   }
 
   ngOnInit() {

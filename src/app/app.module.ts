@@ -11,13 +11,13 @@ import { AgGridModule } from 'ag-grid-angular';
 
 import { AppComponent } from './app.component';
 import { GriddataComponent } from './griddata/griddata.component';
-import { MycelldateComponent } from './mycelldate/mycelldate.component';
+import { DateEditor } from './gridCellEditors/dateEditor';
 
 @NgModule({
   declarations: [
     AppComponent,
     GriddataComponent,
-    MycelldateComponent
+    DateEditor,
   ],
   imports: [
     BrowserAnimationsModule,

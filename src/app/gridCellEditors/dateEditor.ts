@@ -23,7 +23,7 @@ import * as moment from 'moment';
   `
 })
 
-export class MycelldateComponent implements ICellEditorAngularComp {
+export class DateEditor implements ICellEditorAngularComp {
   private params: any;
   private format: string;
   private sourceFormat: string;
@@ -51,12 +51,14 @@ export class MycelldateComponent implements ICellEditorAngularComp {
   }
 
   private focusOnInputNextTick(input: ViewContainerRef) {
-    if (input && input.element) {
+    if (input && input.element && input.element.nativeElement) {
       window.setTimeout(() => {
-        input.element.nativeElement.focus();
-        input.element.nativeElement.value = "";
+        let ele = input.element.nativeElement;
+        ele.focus();
+        // tempoary solution
+        ele.value = "";
         window.setTimeout(() => {
-          this.orgValueChange(input.element.nativeElement);
+          this.orgValueChange(ele);
         }, 100);
       }, 0);
     }
