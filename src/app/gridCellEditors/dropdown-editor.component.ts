@@ -55,4 +55,15 @@ export class DropDownEditor implements ICellEditorAngularComp, AfterViewInit {
     isCancelAfterEnd() {
         return false;
     }
+
+    // any cleanup we need to be done here
+    destroy() {
+
+    }
+    
+    // if true, then this editor will appear in a popup
+    isPopup() {
+        // and we could leave this method out also, false is the default
+        return false;
+    }
 }

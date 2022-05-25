@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
-import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
+import { CellClickedEvent, ColDef, 
+  GridReadyEvent,CheckboxSelectionCallbackParams, ICellRendererParams } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 
 import { DateEditor } from '../gridCellEditors/date-editor.component';
@@ -40,7 +41,11 @@ export class GriddataComponent implements OnInit {
     {
       headerName: "NAME",
       field: "athlete",
-      width: 150, editable: true
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
+      checkboxSelection: true,
+      width: 150, 
+      editable: true
     },
     {
       field: "age", width: 90, editable: true,
@@ -102,19 +107,19 @@ export class GriddataComponent implements OnInit {
   ngOnInit() {
   }
 
-  // Example load data from sever
+  // load data from sever
   onGridReady(params: GridReadyEvent) {
 
     this.rowData$ = this.http.get<any[]>(this.url);
 
     this.rowData$.subscribe(res => {
-      let list: string[] = [];
-      res.forEach((x) => {
-        if (list.indexOf(x.country) === -1)
-          list.push(x.country);
+      let list: Set<string> = new Set<string>();
+      res.forEach(x => {
+        if (!list.has(x.country))
+          list.add(x.country);
       });
 
-      this.countries = list.sort();
+      this.countries = Array.from(list.values()).sort();
 
       this.loading = false;
 
@@ -124,14 +129,13 @@ export class GriddataComponent implements OnInit {
 
   }
 
-  // Example of consuming Grid Event
+  // Grid Event, on cell clicked 
   onCellClicked(e: CellClickedEvent): void {
     console.log('cellClicked', e);
   }
 
-  // Example using Grid's API
+  // using Grid's API
   clearSelection(): void {
     this.agGrid.api.deselectAll();
   }
 }
-
