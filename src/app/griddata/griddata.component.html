@@ -13,7 +13,14 @@
   </mat-progress-spinner>
 </mat-card>
 
-<ag-grid-angular class="ag-theme-alpine gridDiv" #agGrid [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
-  [rowData]="rowData$ | async" [rowSelection]="'multiple'" [animateRows]="true"
-  [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)" (cellClicked)="onCellClicked($event)">
+<ag-grid-angular class="ag-theme-alpine gridDiv" #agGrid 
+  [columnDefs]="columnDefs" 
+  [defaultColDef]="defaultColDef"
+  [components]="components"
+  [rowData]="rowData$ | async" 
+  [rowSelection]="'multiple'" 
+  [animateRows]="true"
+  [frameworkComponents]="frameworkComponents" 
+  (gridReady)="onGridReady($event)" 
+  (cellClicked)="onCellClicked($event)">
 </ag-grid-angular> 

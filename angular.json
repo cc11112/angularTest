@@ -27,8 +27,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/theme.scss",
-              "src/styles.css"
+              "src/styles/css/theme.scss",
+              "src/styles/css/styles.css",
+              "src/styles/css/font-awesome.css"
             ],
             "scripts": ["node_modules/jquery/dist/jquery.min.js", 
               "node_modules/jquery-ui-dist/jquery-ui.js", 

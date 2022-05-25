@@ -7,13 +7,18 @@ import { MaterialExampleModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
-
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+import { ModuleRegistry } from '@ag-grid-community/core';
 
 import { AppComponent } from './app.component';
 import { GriddataComponent } from './griddata/griddata.component';
 import { DateEditor } from './gridCellEditors/date-editor.component';
 import { DoublingEditor } from './gridCellEditors/doubling-editor.comonpent'
 import { DropDownEditor } from './gridCellEditors/dropdown-editor.component';
+import { CustomDateComponent } from './griddata/custom-date-component.component';
+
+// Register the required feature modules with the Grid
+ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 @NgModule({
   declarations: [
@@ -21,13 +26,14 @@ import { DropDownEditor } from './gridCellEditors/dropdown-editor.component';
     GriddataComponent,
     DateEditor,
     DoublingEditor,
-    DropDownEditor
+    DropDownEditor,
+    CustomDateComponent
   ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    AgGridModule,
+    AgGridModule.withComponents(CustomDateComponent),
     HttpClientModule,
     MaterialExampleModule,
     ReactiveFormsModule,

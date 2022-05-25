@@ -1,14 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
-import { CellClickedEvent, ColDef, 
-  GridReadyEvent,CheckboxSelectionCallbackParams, ICellRendererParams } from 'ag-grid-community';
+import {
+  CellClickedEvent,
+  ColDef,
+  GridReadyEvent,
+  CheckboxSelectionCallbackParams,
+  ICellRendererParams
+} from 'ag-grid-community';
+
 import { Observable } from 'rxjs';
 
 import { DateEditor } from '../gridCellEditors/date-editor.component';
 import { NumericEditor } from '../gridCellEditors/numbericEditor';
 import { DoublingEditor } from '../gridCellEditors/doubling-editor.comonpent'
 import { DropDownEditor } from '../gridCellEditors/dropdown-editor.component';
+import { CustomDateComponent } from './custom-date-component.component';
 
 import * as moment from 'moment';
 
@@ -32,7 +39,13 @@ export class GriddataComponent implements OnInit {
     resizable: true,
     sortable: true,
     filter: true,
+    floatingFilter: true,
+    minWidth: 80,
     //flex: 1,
+  };
+
+  public components: { [p: string]: any; } = {
+    agDateInput: CustomDateComponent,
   };
 
   private countries: string[] = [];
@@ -44,7 +57,7 @@ export class GriddataComponent implements OnInit {
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      width: 150, 
+      width: 150,
       editable: true
     },
     {
@@ -70,8 +83,10 @@ export class GriddataComponent implements OnInit {
       cellEditor: NumericEditor
     },
     {
-      field: "date", width: 150, editable: true,
+      field: "date", width: 180, editable: true,
       singleClickEdit: true,
+      filter: 'agDateColumnFilter',
+      filterParams: filterParams,
       cellRenderer: (c: any) => {
         let regEx = /^\d{4}-\d{2}-\d{2}$/;
         if (c.value.match(regEx))
@@ -139,3 +154,26 @@ export class GriddataComponent implements OnInit {
     this.agGrid.api.deselectAll();
   }
 }
+
+const filterParams = {
+  comparator: (filterLocalDateAtMidnight: Date, cellValue: string) => {
+    const dateAsString = cellValue;
+    const dateParts = dateAsString.split('/');
+    const cellDate = new Date(
+      Number(dateParts[2]),
+      Number(dateParts[1]) - 1,
+      Number(dateParts[0])
+    );
+    if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+      return 0;
+    }
+    if (cellDate < filterLocalDateAtMidnight) {
+      return -1;
+    }
+    if (cellDate > filterLocalDateAtMidnight) {
+      return 1;
+    }
+
+    return 0;
+  },
+};

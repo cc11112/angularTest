@@ -5,7 +5,6 @@ import {
   ViewContainerRef
 } from "@angular/core";
 import { MatInput } from '@angular/material/input';
-//import {  ICellEditorComp, ICellEditorParams } from "ag-grid-community";
 import { ICellEditorAngularComp } from "@ag-grid-community/angular"
 
 import * as moment from 'moment';

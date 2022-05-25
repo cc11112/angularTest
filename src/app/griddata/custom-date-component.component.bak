@@ -1,0 +1,73 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { IDateParams } from '@ag-grid-community/core';
+import { IDateAngularComp } from '@ag-grid-community/angular';
+
+import * as moment from 'moment';
+
+@Component({
+    selector: 'app-custom-date',
+    template: `
+     <div
+      #flatpickrEl
+      class="ag-custom-component-popup ag-input-wrapper custom-date-filter"
+      role="presentation">
+        <span>
+            <input type="text" #eInput data-input style="width: 80%;" 
+                [matDatepicker]="customDatePicker" (focus)="customDatePicker.open()" 
+                (dateChange)="onDateChanged(this)"/>
+            <a class="input-button" title="clear" data-clear>
+                X
+            </a>
+            <span>&nbsp;</span>
+        </span>
+        <mat-datepicker-toggle matSuffix [for]="customDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #customDatePicker></mat-datepicker>
+  `,
+    styles: [`
+      .custom-date-filter a {
+        position: absolute;
+        right: 20px;
+        color: rgba(0, 0, 0, 0.54);
+        cursor: pointer;
+      }
+
+      .custom-date-filter:after {
+        position: absolute;
+        content: '\f073';
+        display: block;
+        font-weight: 400;
+        font-family: 'Font Awesome 5 Free';
+        right: 5px;
+        pointer-events: none;
+        color: rgba(0, 0, 0, 0.54);
+      }
+    `,
+    ],
+})
+export class CustomDateComponent implements IDateAngularComp {
+    //@ViewChild('flatpickrEl', { read: ElementRef }) inputDate!: ElementRef;
+
+    public date!: Date;
+    private params: IDateParams;
+
+    agInit(params: IDateParams): void {
+        this.params = params;
+    }
+
+    ngAfterViewInit() {
+    }
+
+    onDateChanged(selectedDates: any) {
+        //  this.date = selectedDates[0] || null;
+        this.params.onDateChanged();
+    }
+
+    getDate() {
+        return this.date;
+    }
+
+    setDate(date: Date): void {
+        this.date = date || null;
+    }
+}
+
