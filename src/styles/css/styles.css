@@ -1,14 +1,13 @@
-@import 'ag-grid-community/dist/styles/ag-grid.css'; 
-@import 'ag-grid-community/dist/styles/ag-theme-alpine.css'; 
-@import 'flatpickr/dist/flatpickr.min.css'; 
+@import 'ag-grid-community/dist/styles/ag-grid.css';
+@import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+@import 'flatpickr/dist/flatpickr.min.css';
 
 body {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    margin: 0;
-    padding: 30px;
-  }
-  
-  html, body {
-    height: 100%;
-  }
-  
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 30px;
+}
+
+html, body {
+  height: 100%;
+}

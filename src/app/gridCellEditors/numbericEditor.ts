@@ -10,6 +10,8 @@ export class NumericEditor implements ICellEditorComp {
     // create the cell
     //debugger;
     this.eInput = document.createElement('input');
+    this.eInput.type = "number";
+    this.eInput.className= "mod";
     
     if (params.eGridCell.style) {
       const w = parseInt(params.eGridCell.style.width.replace("px", "")) -10;
