@@ -50,12 +50,12 @@ export class CustomDateComponent implements IDateAngularComp {
   }
 
   ngAfterViewInit(): void {
-    this.picker = flatpickr(this.flatpickrEl.nativeElement, {
-      onChange: this.onDateChanged.bind(this),
-      wrap: true,
-    });
+     this.picker = flatpickr(this.flatpickrEl.nativeElement, {
+       onChange: this.onDateChanged.bind(this),
+       wrap: true,
+     });
 
-    this.picker.calendarContainer.classList.add('ag-custom-component-popup');
+     this.picker.calendarContainer.classList.add('ag-custom-component-popup');
   }
 
   ngOnDestroy() {

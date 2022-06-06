@@ -15,7 +15,7 @@ import { GriddataComponent } from './griddata/griddata.component';
 import { DateEditor } from './gridCellEditors/date-editor.component';
 import { DoublingEditor } from './gridCellEditors/doubling-editor.comonpent'
 import { DropDownEditor } from './gridCellEditors/dropdown-editor.component';
-import { CustomDateComponent } from './griddata/custom-date-component.component';
+import { CustomDateComponent } from './griddata/custom-date.component';
 
 // Register the required feature modules with the Grid
 ModuleRegistry.registerModules([ClientSideRowModelModule]);

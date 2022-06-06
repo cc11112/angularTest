@@ -14,7 +14,7 @@ import * as moment from 'moment';
         <span>
             <input type="text" #eInput data-input style="width: 80%;" 
                 [matDatepicker]="customDatePicker" (focus)="customDatePicker.open()" 
-                (dateChange)="onDateChanged(this)"/>
+                (dateChange)="onDateChanged(eInput.value)"/>
             <a class="input-button" title="clear" data-clear>
                 X
             </a>
@@ -44,9 +44,7 @@ import * as moment from 'moment';
     `,
     ],
 })
-export class CustomDateComponent implements IDateAngularComp {
-    //@ViewChild('flatpickrEl', { read: ElementRef }) inputDate!: ElementRef;
-
+export class CustomDateComponent2 implements IDateAngularComp {
     public date!: Date;
     private params: IDateParams;
 
@@ -59,6 +57,7 @@ export class CustomDateComponent implements IDateAngularComp {
 
     onDateChanged(selectedDates: any) {
         //  this.date = selectedDates[0] || null;
+        debugger;
         this.params.onDateChanged();
     }
 

@@ -15,7 +15,7 @@ import { DateEditor } from '../gridCellEditors/date-editor.component';
 import { NumericEditor } from '../gridCellEditors/numbericEditor';
 import { DoublingEditor } from '../gridCellEditors/doubling-editor.comonpent'
 import { DropDownEditor } from '../gridCellEditors/dropdown-editor.component';
-import { CustomDateComponent } from './custom-date-component.component';
+import { CustomDateComponent } from './custom-date.component';
 
 import * as moment from 'moment';
 
@@ -157,6 +157,7 @@ export class GriddataComponent implements OnInit {
 
 const filterParams = {
   comparator: (filterLocalDateAtMidnight: Date, cellValue: string) => {
+    
     const dateAsString = cellValue;
     const dateParts = dateAsString.split('/');
     const cellDate = new Date(
